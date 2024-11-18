@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.NoSuchElementException;
 
 /**
@@ -89,11 +90,11 @@ public class MyArrayList<T> {
      * @param index индекс по которому необходимо получить элемент
      * @throws IndexOutOfBoundsException возникает если индекс выходит за пределы списка
      */
-    public Object get(int index) {
+    public T get(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
-        return array[index];
+        return (T) array[index];
     }
 
     /**
@@ -151,10 +152,59 @@ public class MyArrayList<T> {
     }
 
     /**
-     * Метод стандартной сортировки
+     * Метод для сортировки списка с компаратором (быстрая сортировка)
      */
-    public void sort() {
-        Arrays.sort(array, 0, size);
+    public void sort(Comparator<? super T> comparator) {
+        quickSort(array, 0, size - 1, comparator);
+    }
+
+    /**
+     * Вспомогательный метод быстрой сортировки
+     * @param array текущий список
+     * @param low нижний индекс
+     * @param high верхний индекс
+     * @param comparator класс сравнения
+     */
+    private void quickSort(Object[] array, int low, int high, Comparator<? super T> comparator) {
+        if (low < high) {
+            int pivotIndex = partition(array, low, high, comparator);
+
+            quickSort(array, low, pivotIndex - 1, comparator);
+            quickSort(array, pivotIndex + 1, high, comparator);
+        }
+    }
+
+    /**
+     * Разделение массива на две части и нахождение опорного элемента
+     * @param array текущий список
+     * @param low нижний индекс
+     * @param high верхний индекс
+     * @param comparator класс сравнения
+     */
+    private int partition(Object[] array, int low, int high, Comparator<? super T> comparator) {
+        T pivot = (T) array[high];
+        int i = low - 1;
+
+        for (int j = low; j < high; j++) {
+            if (comparator.compare((T) array[j], pivot) <= 0) {
+                i++;
+                swap(array, i, j);
+            }
+        }
+        swap(array, i + 1, high);
+        return i + 1;
+    }
+
+    /**
+     * Метод для обмена элементов массива
+     * @param array текущий список
+     * @param i индекс, который меняем
+     * @param j индекс, на который меняем
+     */
+    private void swap(Object[] array, int i, int j) {
+        Object temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
     }
 
     /**
