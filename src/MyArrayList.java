@@ -160,9 +160,10 @@ public class MyArrayList<T> {
 
     /**
      * Вспомогательный метод быстрой сортировки
-     * @param array текущий список
-     * @param low нижний индекс
-     * @param high верхний индекс
+     *
+     * @param array      текущий список
+     * @param low        нижний индекс
+     * @param high       верхний индекс
      * @param comparator класс сравнения
      */
     private void quickSort(Object[] array, int low, int high, Comparator<? super T> comparator) {
@@ -176,9 +177,10 @@ public class MyArrayList<T> {
 
     /**
      * Разделение массива на две части и нахождение опорного элемента
-     * @param array текущий список
-     * @param low нижний индекс
-     * @param high верхний индекс
+     *
+     * @param array      текущий список
+     * @param low        нижний индекс
+     * @param high       верхний индекс
      * @param comparator класс сравнения
      */
     private int partition(Object[] array, int low, int high, Comparator<? super T> comparator) {
@@ -197,9 +199,10 @@ public class MyArrayList<T> {
 
     /**
      * Метод для обмена элементов массива
+     *
      * @param array текущий список
-     * @param i индекс, который меняем
-     * @param j индекс, на который меняем
+     * @param i     индекс, который меняем
+     * @param j     индекс, на который меняем
      */
     private void swap(Object[] array, int i, int j) {
         Object temp = array[i];
